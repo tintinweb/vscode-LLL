@@ -1,0 +1,117 @@
+{
+    "name": "vscode-LLL",
+    "displayName": "LLL",
+    "description": "Ethereum Low-level Lisp-like language (LLL) support for Visual Studio Code",
+    "version": "0.0.1",
+    "keywords": [
+        "LLL",
+        "ethereum",
+        "blockchain",
+        "compiler",
+        "security"
+    ],
+    "publisher": "tintinweb",
+    "engines": {
+        "vscode": "^1.20.2"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "bugs": {
+        "url": "https://github.com/tintinweb/vscode-LLL/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tintinweb/vscode-LLL"
+    },
+    "activationEvents": [
+        "onLanguage:LLL",
+        "onCommand:LLL.compileContract"
+    ],
+    "main": "./src/extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "LLL",
+                "aliases": [
+                    "lll",
+                    "LLL"
+                ],
+                "extensions": [
+                    ".lll"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "LLL",
+                "scopeName": "source.LLL",
+                "path": "./syntaxes/LLL.tmLanguage"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "LLL Low-Level Lisp-like Language (Ethereum)",
+            "properties": {
+                "LLL.compile.onSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically compile when saving and annotate code with compile results."
+                },
+                "LLL.mode.active": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable/Disable all active components of this extension (emergency)."
+                },
+                "LLL.decoration.enable": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to enable/disable LLL active syntax highlighting for security."
+                },
+                "LLL.hover.enable": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to enable/disable LLL tooltips/hover information."
+                },
+                "LLL.command": {
+                    "type": "string",
+                    "default": "lllc",
+                    "description": "Defines how to invoke the LLL compiler command. This can by any shell command and the LLL arguments will be passed to this command as <LLL.command> <args>. Default is to assume LLL is installed in PATH and executable as `lllc`"
+                },
+                "LLL.analysis.onSave": {
+                    "type": "boolean",
+                    "default": true,
+                    "markdownDescription": "Automatically submit the compiled bytecode to MythX for security analysis and annotate the code with the security scan results. See https://mythx.io for details"
+                },
+                "LLL.analysis.mythx.password": {
+                    "type": "string",
+                    "default": "",
+                    "markdownDescription": "MythX Password. See https://mythx.io to get password"
+                },
+                "LLL.analysis.mythx.ethAddress": {
+                    "type": "string",
+                    "default": "initial",
+                    "markdownDescription": "MetaMask ETH address used to login to MythX. Use 'trial' for trial mode. See https://mythx.io"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "LLL.compileContract",
+                "title": "LLL: Compile"
+            }
+        ],
+        "x-keybindings": [
+            {
+                "key": "cmd+alt+shift+i",
+                "command": "editor.action.inspectTMScopes"
+            }
+        ]
+    },
+    "dependencies": {
+        "armlet": "^2.3.0",
+        "async": "^2.6.2",
+        "shell-escape": "^0.2.0"
+    }
+}
