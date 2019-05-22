@@ -1,7 +1,6 @@
 
 # vscode-LLL    
    
-![img](./images/icon.png)
 
 Ethereum LLL language support for Visual Studio Code  
 
