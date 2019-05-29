@@ -1,7 +1,8 @@
+![img](./images/icon.png)
+
 
 # vscode-LLL    
-   
-![img](./images/icon.png)
+
 
 Ethereum LLL language support for Visual Studio Code  
 
@@ -31,7 +32,7 @@ Note: Active features can be disabled by setting `Settings` → `LLL` → `Mode:
   
 ## Requirements
 
-* It is assumed that LLLC is installed and generally available on the system. In case LLLC is not available in path or called in a virtualenv configure the LLLC command in `Settings` → `LLL` → `Command`. Please follow [this simple guide](https://media.consensys.net/installing-ethereum-compilers-61d701e78f6) on how to build and install the LLL compiler.
+* It is assumed that LLLC is installed and generally available on the system. In case LLLC is not available in path configure the LLLC command in `Settings` → `LLL` → `Command`. Please follow [this simple guide](https://media.consensys.net/installing-ethereum-compilers-61d701e78f6) on how to build and install the LLL compiler.
 
 ## Extension Settings
 

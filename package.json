@@ -2,15 +2,16 @@
     "name": "vscode-LLL",
     "displayName": "LLL",
     "description": "Ethereum Low-level Lisp-like language (LLL) support for Visual Studio Code",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "keywords": [
         "LLL",
         "ethereum",
         "blockchain",
         "compiler",
-        "security"
+        "Low-Level Lisp-like Language"
     ],
     "publisher": "tintinweb",
+    "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.20.2"
     },
