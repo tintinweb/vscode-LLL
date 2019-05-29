@@ -3,7 +3,6 @@
 
 # vscode-LLL    
 
-
 Ethereum LLL language support for Visual Studio Code  
 
 
