@@ -5,8 +5,10 @@
 
 Ethereum LLL language support for Visual Studio Code  
 
+![image](https://user-images.githubusercontent.com/2865694/58585492-2a023a00-8259-11e9-9a10-7c80a6848a9c.png)
 
-LLL is the new-old solidity :D
+
+*LLL is the new-old solidity :D*
 
 
 ## Features
