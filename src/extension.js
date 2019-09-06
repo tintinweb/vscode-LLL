@@ -132,6 +132,10 @@ function onActivate(context) {
             onDidSave(document);  
         }, null, context.subscriptions);
         
+        /****** OnOpen */
+        vscode.workspace.onDidOpenTextDocument(document => {
+            onDidSave(document);  
+        }, null, context.subscriptions);
 
         
 
