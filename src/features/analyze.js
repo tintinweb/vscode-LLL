@@ -24,7 +24,6 @@ const analyze = {
             {
             "data": data,    // required
             "timeout": 2 * 60 * 1000,  // optional, but can improve response time
-            "debug": true,            // optional: set to true if you want to see what's going on
             "clientToolName": 'vscode-lll-' + vscode.extensions.getExtension('tintinweb.vscode-lll').packageJSON.version,
             "noCacheLookup": false
             })

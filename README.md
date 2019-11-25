@@ -35,18 +35,14 @@ Note: Active features can be disabled by setting `Settings` → `LLL` → `Mode:
 
 * It is assumed that LLLC is installed and generally available on the system. In case LLLC is not available in path configure the LLLC command in `Settings` → `LLL` → `Command`. Please follow [this simple guide](https://media.consensys.net/installing-ethereum-compilers-61d701e78f6) on how to build and install the LLL compiler.
 
-## Extension Settings
-
-TBD
-
-## Tour
-
-TBD
-
 
 ## Release Notes
 
 see [CHANGELOG](./CHANGELOG.md)
+
+## 0.0.4
+- fix mythx analysis error
+- fix misused promises
 
 ## 0.0.2 - 0.0.3
 - fixed diagnostic handling

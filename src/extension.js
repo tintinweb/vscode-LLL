@@ -30,43 +30,29 @@ var activeEditor;
 
 /** event funcs */
 async function onDidSave(document){
-    return new Promise((reject,resolve) =>{
 
-        if(document.languageId!=settings.LANG_ID){
-            console.log("langid mismatch")
-            reject("langid_mismatch")
-            return;
-        }
+    if(document.languageId!=settings.LANG_ID){
+        return;
+    }
 
-        //always run on save
-        
-        if(settings.CONFIG.compile.onSave){
-            resolve(mod_compile.compileContractCommand(document.uri))
-        }
-    })
+    //always run on save
+    if(settings.CONFIG.compile.onSave){
+        mod_compile.compileContractCommand(document.uri)
+    }
 }
 
 async function onDidChange(event) {
-    return new Promise((reject,resolve) => {
-        if(vscode.window.activeTextEditor.document.languageId != settings.LANG_ID){
-            reject("langid_mismatch")
-            return;
-        }
-
-        console.log("onDidChange ...")
-        if(settings.CONFIG.decoration.enable){
-            mod_deco.decorateWords(activeEditor, [
-                {
-                    regex:"\\b(log\d*)\\.",
-                    captureGroup: 1,
-                }
-            ], mod_deco.styles.foreGroundNewEmit);
-        }
-        
-
-        console.log("✓ onDidChange")
-        resolve()
-    });
+    if(vscode.window.activeTextEditor.document.languageId != settings.LANG_ID){
+        return;
+    }
+    if(settings.CONFIG.decoration.enable){
+        mod_deco.decorateWords(activeEditor, [
+            {
+                regex:"\\b(log\d*)\\.",
+                captureGroup: 1,
+            }
+        ], mod_deco.styles.foreGroundNewEmit);
+    }
 }
 function onInitModules(context, type) {
     mod_hover.init(context, type, settings.CONFIG)
@@ -78,8 +64,6 @@ function onActivate(context) {
     const active = vscode.window.activeTextEditor;
     if (!active || !active.document) return;
     activeEditor = active;
-
-    console.debug(" activate extension: LLL....")
 
     registerDocType(settings.LANG_ID);
     
@@ -136,12 +120,7 @@ function onActivate(context) {
         vscode.workspace.onDidOpenTextDocument(document => {
             onDidSave(document);  
         }, null, context.subscriptions);
-
-        
-
-
     }
-    console.log("✓ activate extension: LLL")
 }
 
 /* exports */

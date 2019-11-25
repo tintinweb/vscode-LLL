@@ -2,7 +2,7 @@
     "name": "vscode-LLL",
     "displayName": "LLL",
     "description": "Ethereum Low-level Lisp-like language (LLL) support for Visual Studio Code",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "keywords": [
         "LLL",
         "ethereum",

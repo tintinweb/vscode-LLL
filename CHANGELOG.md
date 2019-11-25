@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.4
+- fix mythx analysis error
+- fix misused promises
+
 ## 0.0.2 - 0.0.3
 - fixed diagnostic handling
 - auto compile when opening new file
