@@ -1,9 +1,15 @@
+'use strict'
+/** 
+ * @author github.com/tintinweb
+ * @license MIT
+ * 
+ * */
 const vscode = require('vscode');
 const fs = require('fs')
 const path = require("path");
+const settings = require("../../settings");
 
-const asmArr = JSON.parse(fs.readFileSync(path.resolve(__dirname,'./asm.json')));  
-let lllConfig;
+const asmArr = JSON.parse(fs.readFileSync(path.resolve(__dirname,'./asm.json')));
 
 function createHover(name, snippet, type) {
     var text = Array();
@@ -60,7 +66,7 @@ function createHover(name, snippet, type) {
 }
 
 function provideHoverHandler(document, position, token, type) {
-    if (!lllConfig.hover.enable) {
+    if (!settings.extensionConfig().hover.enable) {
         return;
     }
     const range = document.getWordRangeAtPosition(position);
@@ -78,9 +84,7 @@ function provideHoverHandler(document, position, token, type) {
     }
 }
 
-function init(context, type, config){
-    lllConfig = config;
-    
+function init(context, type){
     context.subscriptions.push(
         vscode.languages.registerHoverProvider(type, {
             provideHover(document, position, token) {

@@ -1,9 +1,9 @@
+'use strict'
 /** 
  * @author github.com/tintinweb
  * @license MIT
  * 
  * */
-
 const vscode = require("vscode")
 const path = require("path");
 const exec = require("child_process").exec;
@@ -11,14 +11,13 @@ const async = require("async");
 const mod_analyze = require("./analyze.js")
 const shellescape = require('shell-escape');
 
-var LLLConfig;
+const settings = require("../settings");
+
 var extensionContext;
 var compiler = {
-    name: "LLL",
+    name: settings.LANGUAGE_ID,
     version: null
 }
-
-var LANG_ID = null;
 
 const compile = {};
 var diagnosticCollections = {
@@ -50,7 +49,7 @@ function checkLLL(callback) {
         return 
     }
     //allow anything as command - no shellescape to even allow python -m LLL --version etc...
-    exec(`${LLLConfig.command} --version`, function(err, stdout, stderr) {
+    exec(`${settings.extensionConfig().command} --version`, function(err, stdout, stderr) {
         if (err)
             return callback(`Error executing lll:\n${stderr}`);
 
@@ -63,7 +62,7 @@ function checkLLL(callback) {
 
 // Execute LLL for single source file
 function execLLL(source_path, callback) {
-    const command = `${LLLConfig.command} --hex ${shellescape([source_path])}`;
+    const command = `${settings.extensionConfig().command} --hex ${shellescape([source_path])}`;
 
     exec(command, function(err, stdout, stderr) {
         if (err)
@@ -116,7 +115,7 @@ function compileAll(options, callback) {
             }, {});
 
             const compilerInfo = {
-                name: "LLL",
+                name: settings.LANGUAGE_ID,
                 version: compiler.version
             };
 
@@ -149,9 +148,9 @@ function compileActiveFileCommand(contractFile) {
                 diagnosticCollections.mythx.delete(contractFile);
                 vscode.window.showInformationMessage('[Compiler success] ' + Object.keys(success).join(","))
                 
-                // precedence: (1) LLLConfig, otherwise (2) process.env 
-                let password = LLLConfig.analysis.mythx.password || process.env.MYTHX_PASSWORD
-                let ethAddress = LLLConfig.analysis.mythx.ethAddress || process.env.MYTHX_ETH_ADDRESS
+                // precedence: (1) settings.extensionConfig(). otherwise (2) process.env 
+                let password = settings.extensionConfig().analysis.mythx.password || process.env.MYTHX_PASSWORD
+                let ethAddress = settings.extensionConfig().analysis.mythx.ethAddress || process.env.MYTHX_ETH_ADDRESS
 
                 //set to trial?
                 if(ethAddress=="trial"){
@@ -180,24 +179,20 @@ function compileActiveFileCommand(contractFile) {
                     }
                 }
 
-                if(LLLConfig.analysis.onSave && ethAddress && password){
+                if(settings.extensionConfig().analysis.onSave && ethAddress && password){
                     //if mythx is configured
                     
                     // bytecode
                     for (let contractKey in success) {
-                        mod_analyze.analyze.mythX(ethAddress, password, success[contractKey].bytecode, success[contractKey].deployedBytecode)
+                        mod_analyze.analyze.mythXjs(ethAddress, password, success[contractKey].bytecode, success[contractKey].deployedBytecode)
                         .then(result => {
                             let diagIssues = []
-                            vscode.window.showInformationMessage('[MythX success] ' + contractKey)
-                            const util = require('util');
-                            console.debug(`${util.inspect(result.status, {depth: null})}`);
-                            console.debug(`${util.inspect(result.issues, {depth: null})}`);
-                            result.issues.forEach(function(result){
-                                result.issues.forEach(function(issue){
-                                    
+
+                            result.forEach(function(_result){
+                                _result.issues.forEach(function(issue){
                                     let locations = JSON.stringify(issue.locations)
                                     let shortmsg = `[${issue.severity}] ${issue.swcID}: ${issue.description.head}`
-                                    let errormsg = `[${issue.severity}] ${issue.swcID}: ${issue.swcTitle}\n${issue.description.head}\n${issue.description.tail}\n\nLocations (bytecode offset): ${locations}\n\nCovered Instructions/Paths: ${result.meta.coveredInstructions}/${result.meta.coveredPaths}`
+                                    let errormsg = `[${issue.severity}] ${issue.swcID}: ${issue.swcTitle}\n${issue.description.head}\n${issue.description.tail}\n\nLocations (bytecode offset): ${locations}\n\nCovered Instructions/Paths: ${_result.meta.coveredInstructions}/${_result.meta.coveredPaths}`
                                     let lineNr = 1  // we did not submit any source so just pin it to line 0
 
                                     diagIssues.push({
@@ -210,7 +205,8 @@ function compileActiveFileCommand(contractFile) {
                                     });
                                 })
                             })
-                            diagnosticCollections.mythx.set(contractFile, diagIssues)
+                            vscode.window.showInformationMessage(`[MythX success] ${contractKey}: ${diagIssues.length} issues`);
+                            diagnosticCollections.mythx.set(contractFile, diagIssues);
                         }).catch(err => {
                             vscode.window.showErrorMessage('[MythX error] ' + err)
                             console.log(err)
@@ -273,7 +269,7 @@ function compileActiveFileCommand(contractFile) {
 
 function compileActiveFile(contractFile) {
     return new Promise((resolve, reject) => {
-        if (!contractFile && vscode.window.activeTextEditor.document.languageId !== LANG_ID) {
+        if (!contractFile && vscode.window.activeTextEditor.document.languageId !== settings.LANGUAGE_ID) {
             reject("Not a LLL source file")
             return;
         }
@@ -294,13 +290,11 @@ function compileActiveFile(contractFile) {
     })
 }
 
-function init(context, type, _LLLConfig) {
-    LANG_ID = type
+function init(context) {
     diagnosticCollections.compiler = vscode.languages.createDiagnosticCollection('LLL Compiler');
     context.subscriptions.push(diagnosticCollections.compiler)
     diagnosticCollections.mythx = vscode.languages.createDiagnosticCollection('MythX Security Platform');
     context.subscriptions.push(diagnosticCollections.mythx)
-    LLLConfig = _LLLConfig
     extensionContext = context
 }
 

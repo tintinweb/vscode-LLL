@@ -1,17 +1,21 @@
+'use strict'
 /** 
  * @author github.com/tintinweb
  * @license MIT
  * 
+ * 
  * */
-
- /** imports */
-const vscode = require("vscode")
+/** imports */
+const vscode = require("vscode");
 
 /** globals */
-const LANG_ID = "LLL";
-const CONFIG = vscode.workspace.getConfiguration(LANG_ID);
+const LANGUAGE_ID = "LLL";
+
+function extensionConfig() {
+    return vscode.workspace.getConfiguration(LANGUAGE_ID);
+}
 
 module.exports = {
-    LANG_ID:LANG_ID,
-    CONFIG:CONFIG
+    LANGUAGE_ID: LANGUAGE_ID,
+    extensionConfig: extensionConfig
 }

@@ -1,3 +1,4 @@
+'use strict'
 /** 
  * @author github.com/tintinweb
  * @license MIT
@@ -7,13 +8,13 @@
  * */
 
 /** imports */
-const vscode = require("vscode")
-const settings = require("./settings")
+const vscode = require("vscode");
+const settings = require("./settings");
 
 
-const mod_deco = require("./features/deco.js")
-const mod_hover = require("./features/hover/hover.js")
-const mod_compile = require("./features/compile.js")
+const mod_deco = require("./features/deco.js");
+const mod_hover = require("./features/hover/hover.js");
+const mod_compile = require("./features/compile.js");
 
 
 /** global vars */
@@ -31,21 +32,21 @@ var activeEditor;
 /** event funcs */
 async function onDidSave(document){
 
-    if(document.languageId!=settings.LANG_ID){
+    if(document.languageId != settings.LANGUAGE_ID){
         return;
     }
 
     //always run on save
-    if(settings.CONFIG.compile.onSave){
+    if(settings.extensionConfig().compile.onSave){
         mod_compile.compileContractCommand(document.uri)
     }
 }
 
 async function onDidChange(event) {
-    if(vscode.window.activeTextEditor.document.languageId != settings.LANG_ID){
+    if(vscode.window.activeTextEditor.document.languageId != settings.LANGUAGE_ID){
         return;
     }
-    if(settings.CONFIG.decoration.enable){
+    if(settings.extensionConfig().decoration.enable){
         mod_deco.decorateWords(activeEditor, [
             {
                 regex:"\\b(log\d*)\\.",
@@ -55,8 +56,8 @@ async function onDidChange(event) {
     }
 }
 function onInitModules(context, type) {
-    mod_hover.init(context, type, settings.CONFIG)
-    mod_compile.init(context, type, settings.CONFIG)
+    mod_hover.init(context, type);
+    mod_compile.init(context, type);
 }
 
 function onActivate(context) {
@@ -65,7 +66,7 @@ function onActivate(context) {
     if (!active || !active.document) return;
     activeEditor = active;
 
-    registerDocType(settings.LANG_ID);
+    registerDocType(settings.LANGUAGE_ID);
     
     function registerDocType(type) {
         context.subscriptions.push(
@@ -87,7 +88,7 @@ function onActivate(context) {
             vscode.commands.registerCommand('LLL.compileContract', mod_compile.compileContractCommand)
         )
         
-        if(!settings.CONFIG.mode.active){
+        if(!settings.extensionConfig().mode.active){
             console.debug("ⓘ activate extension: entering passive mode. not registering any active code augmentation support.")
             return;
         }

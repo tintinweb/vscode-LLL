@@ -40,6 +40,10 @@ Note: Active features can be disabled by setting `Settings` → `LLL` → `Mode:
 
 see [CHANGELOG](./CHANGELOG.md)
 
+## 0.0.5
+- updated mythx library: switched from `armlet` to `mythxjs`.
+- fix: make settings take effect immediately.
+
 ## 0.0.4
 - fix mythx analysis error
 - fix misused promises

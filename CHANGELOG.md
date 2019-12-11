@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.5
+- updated mythx library: switched from `armlet` to `mythxjs`.
+- fix: make settings take effect immediately.
+
 ## 0.0.4
 - fix mythx analysis error
 - fix misused promises
