@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.0.6
+- new: web extension compatibility. now available on https://github.dev - #3
+
 ## 0.0.5
 - updated mythx library: switched from `armlet` to `mythxjs`.
 - fix: make settings take effect immediately.
