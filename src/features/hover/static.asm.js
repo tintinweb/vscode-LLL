@@ -1,4 +1,11 @@
-{
+'use strict';
+/** 
+ * @author github.com/tintinweb
+ * @license MIT
+ * 
+ * */
+
+const ASM = {
     "add": {
         "description": "Addition operation.",
         "instr_args": [
@@ -2163,4 +2170,10 @@
         "instr_size": 1,
         "prefix": "xor"
     }
+}
+
+
+
+module.exports = {
+    ASM
 }

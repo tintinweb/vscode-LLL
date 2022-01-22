@@ -5,11 +5,8 @@
  * 
  * */
 const vscode = require('vscode');
-const fs = require('fs')
-const path = require("path");
 const settings = require("../../settings");
-
-const asmArr = JSON.parse(fs.readFileSync(path.resolve(__dirname,'./asm.json')));
+const {ASM} = require("./static.asm.js");
 
 function createHover(name, snippet, type) {
     var text = Array();
@@ -74,12 +71,12 @@ function provideHoverHandler(document, position, token, type) {
         return;
     const word = document.getText(range);
 
-    for (const snippet in asmArr) {
+    for (const snippet in ASM) {
         if (
-            asmArr[snippet].prefix == word ||
-            asmArr[snippet].hover == word
+            ASM[snippet].prefix == word ||
+            ASM[snippet].hover == word
         ) {
-            return createHover(snippet, asmArr[snippet], type);
+            return createHover(snippet, ASM[snippet], type);
         }
     }
 }
