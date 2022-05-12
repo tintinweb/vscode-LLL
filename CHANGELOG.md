@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.7
+- update: grammar to include `baseFee` and `selfbalance` - #5
+- update: dependencies
+
 ## 0.0.6
 - new: web extension compatibility. now available on https://github.dev - #3
 
