@@ -144,7 +144,7 @@
 		</dict>
 		<dict>
 		<key>match</key>
-			<string>(?<=\()(?i:gt|staticcall|blockhash|coinbase|jumpdest|push32|push31|push30|add|dup5|dup4|dup7|dup6|dup1|dup3|dup2|timestamp|dup9|dup8|sgt|smod|not|mod|calldataload|shr|returndatasize|revert|gasprice|div|shl|push3|jump|push5|eq|push4|xor|push7|push6|create2|sload|mul|push1|log4|push2|log2|log3|log0|log1|push9|push8|jumpi|difficulty|address|byte|addmod|swap6|swap7|swap4|swap5|swap2|swap3|swap1|calldatacopy|swap8|swap9|dup15|dup14|dup16|dup11|dup10|dup13|dup12|or|mstore8|origin|gaslimit|number|pop|swap10|swap11|swap12|swap13|swap14|swap15|swap16|extcodesize|create|lt|pc|call|codecopy|sstore|signextend|sha3|gas|msize|extcodecopy|returndatacopy|slt|caller|codesize|balance|and|extcodehash|sar|return|mload|mstore|push19|push18|callvalue|push11|push10|push13|push12|push15|push14|push17|push16|selfdestruct|calldatasize|mulmod|delegatecall|iszero|sub|push24|push25|push26|push27|push20|push21|push22|push23|sdiv|push28|push29|exp|callcode|returnlll)(?=\s+)</string>
+			<string>(?<=\()(?i:gt|staticcall|blockhash|coinbase|basefee|selfbalance|jumpdest|push32|push31|push30|add|dup5|dup4|dup7|dup6|dup1|dup3|dup2|timestamp|dup9|dup8|sgt|smod|not|mod|calldataload|shr|returndatasize|revert|gasprice|div|shl|push3|jump|push5|eq|push4|xor|push7|push6|create2|sload|mul|push1|log4|push2|log2|log3|log0|log1|push9|push8|jumpi|difficulty|address|byte|addmod|swap6|swap7|swap4|swap5|swap2|swap3|swap1|calldatacopy|swap8|swap9|dup15|dup14|dup16|dup11|dup10|dup13|dup12|or|mstore8|origin|gaslimit|number|pop|swap10|swap11|swap12|swap13|swap14|swap15|swap16|extcodesize|create|lt|pc|call|codecopy|sstore|signextend|sha3|gas|msize|extcodecopy|returndatacopy|slt|caller|codesize|balance|and|extcodehash|sar|return|mload|mstore|push19|push18|callvalue|push11|push10|push13|push12|push15|push14|push17|push16|selfdestruct|calldatasize|mulmod|delegatecall|iszero|sub|push24|push25|push26|push27|push20|push21|push22|push23|sdiv|push28|push29|exp|callcode|returnlll)(?=\s+)</string>
 			<key>name</key>
 			<string>keyword.control.builtin.lll</string>
 		</dict>
@@ -215,6 +215,6 @@
 	<key>scopeName</key>
 	<string>source.LLL</string>
 	<key>uuid</key>
-	<string>00D451C9-6B1D-11D9-8DFA-000D93589FFF</string>
+	<string>6A173900-6AA4-4C7D-9E34-BBFC9468584D</string>
 </dict>
 </plist>
