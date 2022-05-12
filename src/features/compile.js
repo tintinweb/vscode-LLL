@@ -50,8 +50,10 @@ function checkLLL(callback) {
     }
     //allow anything as command - no shellescape to even allow python -m LLL --version etc...
     exec(`${settings.extensionConfig().command} --version`, function(err, stdout, stderr) {
-        if (err)
+        if (err){
             return callback(`Error executing lll:\n${stderr}`);
+        }
+            
 
         let rx = /^Version\:(.*)$/gm;
         compiler.version = rx.exec(stdout.trim())[1].trim();
