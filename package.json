@@ -2,7 +2,7 @@
     "name": "vscode-LLL",
     "displayName": "LLL",
     "description": "Ethereum Low-level Lisp-like language (LLL) support for Visual Studio Code",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "license": "MIT",
     "keywords": [
         "LLL",
@@ -14,7 +14,7 @@
     "publisher": "tintinweb",
     "icon": "images/icon.png",
     "engines": {
-        "vscode": "^1.20.2"
+        "vscode": "^1.75.2"
     },
     "categories": [
         "Programming Languages"
@@ -26,10 +26,6 @@
         "type": "git",
         "url": "https://github.com/tintinweb/vscode-LLL"
     },
-    "activationEvents": [
-        "onLanguage:LLL",
-        "onCommand:LLL.compileContract"
-    ],
     "main": "./src/extension.js",
     "browser": "./dist/web/extension.js",
     "contributes": {
@@ -59,7 +55,7 @@
             "properties": {
                 "LLL.compile.onSave": {
                     "type": "boolean",
-                    "default": true,
+                    "default": false,
                     "description": "Automatically compile when saving and annotate code with compile results."
                 },
                 "LLL.mode.active": {
@@ -81,21 +77,6 @@
                     "type": "string",
                     "default": "lllc",
                     "description": "Defines how to invoke the LLL compiler command. This can by any shell command and the LLL arguments will be passed to this command as <LLL.command> <args>. Default is to assume LLL is installed in PATH and executable as `lllc`"
-                },
-                "LLL.analysis.onSave": {
-                    "type": "boolean",
-                    "default": true,
-                    "markdownDescription": "Automatically submit the compiled bytecode to MythX for security analysis and annotate the code with the security scan results. See https://mythx.io for details"
-                },
-                "LLL.analysis.mythx.password": {
-                    "type": "string",
-                    "default": "",
-                    "markdownDescription": "MythX Password. See https://mythx.io to get password"
-                },
-                "LLL.analysis.mythx.ethAddress": {
-                    "type": "string",
-                    "default": "initial",
-                    "markdownDescription": "MetaMask ETH address used to login to MythX. Use 'trial' for trial mode. See https://mythx.io"
                 }
             }
         },
@@ -123,13 +104,11 @@
     },
     "dependencies": {
         "async": "^3.2.3",
-        "chai": "^4.2.0",
-        "mythxjs": "^1.4.0",
         "shell-escape": "^0.2.0"
     },
     "devDependencies": {
-        "@vscode/test-web": "^0.0.24",
+        "@vscode/test-web": "^0.0.65",
         "webpack": "^5.66.0",
-        "webpack-cli": "^4.9.1"
+        "webpack-cli": "^5.1.4"
     }
 }

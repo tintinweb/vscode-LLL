@@ -85,7 +85,7 @@ function onActivate(context) {
         });
 
         context.subscriptions.push(
-            vscode.commands.registerCommand('LLL.compileContract', mod_compile.compileContractCommand)
+            vscode.commands.registerCommand('LLL.compileContract', (docuri) => {return mod_compile.compileContractCommand(docuri ?? active.document.uri)})
         )
         
         if(!settings.extensionConfig().mode.active){
