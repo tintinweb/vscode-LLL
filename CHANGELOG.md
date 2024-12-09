@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.0.8
+- remove: mythx
+- disable compile on save by default
+- update: min vscode version; remove implicit activation events
+- update: dependencies
+- publish to openvsx
+
 ## 0.0.7
 - update: grammar to include `baseFee` and `selfbalance` - #5
 - update: dependencies
