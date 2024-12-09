@@ -30,26 +30,26 @@ var activeEditor;
 
 
 /** event funcs */
-async function onDidSave(document){
+async function onDidSave(document) {
 
-    if(document.languageId != settings.LANGUAGE_ID){
+    if (document.languageId != settings.LANGUAGE_ID) {
         return;
     }
 
     //always run on save
-    if(settings.extensionConfig().compile.onSave){
+    if (settings.extensionConfig().compile.onSave) {
         mod_compile.compileContractCommand(document.uri)
     }
 }
 
 async function onDidChange(event) {
-    if(vscode.window.activeTextEditor.document.languageId != settings.LANGUAGE_ID){
+    if (vscode.window.activeTextEditor.document.languageId != settings.LANGUAGE_ID) {
         return;
     }
-    if(settings.extensionConfig().decoration.enable){
+    if (settings.extensionConfig().decoration.enable) {
         mod_deco.decorateWords(activeEditor, [
             {
-                regex:"\\b(log\d*)\\.",
+                regex: "\\b(log\d*)\\.",
                 captureGroup: 1,
             }
         ], mod_deco.styles.foreGroundNewEmit);
@@ -67,7 +67,7 @@ function onActivate(context) {
     activeEditor = active;
 
     registerDocType(settings.LANGUAGE_ID);
-    
+
     function registerDocType(type) {
         context.subscriptions.push(
             vscode.languages.reg
@@ -85,10 +85,10 @@ function onActivate(context) {
         });
 
         context.subscriptions.push(
-            vscode.commands.registerCommand('LLL.compileContract', (docuri) => {return mod_compile.compileContractCommand(docuri ?? active.document.uri)})
+            vscode.commands.registerCommand('LLL.compileContract', (docuri) => { return mod_compile.compileContractCommand(docuri ?? active.document.uri) })
         )
-        
-        if(!settings.extensionConfig().mode.active){
+
+        if (!settings.extensionConfig().mode.active) {
             console.debug("ⓘ activate extension: entering passive mode. not registering any active code augmentation support.")
             return;
         }
@@ -114,12 +114,12 @@ function onActivate(context) {
         /***** OnSave */
 
         vscode.workspace.onDidSaveTextDocument(document => {
-            onDidSave(document);  
+            onDidSave(document);
         }, null, context.subscriptions);
-        
+
         /****** OnOpen */
         vscode.workspace.onDidOpenTextDocument(document => {
-            onDidSave(document);  
+            onDidSave(document);
         }, null, context.subscriptions);
     }
 }

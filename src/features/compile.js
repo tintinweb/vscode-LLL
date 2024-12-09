@@ -20,10 +20,10 @@ var compiler = {
 
 const compile = {};
 var diagnosticCollections = {
-    compiler:null,
+    compiler: null,
 }
 
-compile.display = function(paths, options) {
+compile.display = function (paths, options) {
     if (options.quiet !== true) {
         if (!Array.isArray(paths)) {
             paths = Object.keys(paths);
@@ -41,21 +41,21 @@ compile.display = function(paths, options) {
 
 // Check that LLL is available, save its version
 function checkLLL(callback) {
-    if(compiler.version){
+    if (compiler.version) {
         // version check already performed
         callback(null)
-        return 
+        return
     }
     //allow anything as command - no shellescape to even allow python -m LLL --version etc...
-    exec(`${settings.extensionConfig().command} --version`, function(err, stdout, stderr) {
-        if (err){
+    exec(`${settings.extensionConfig().command} --version`, function (err, stdout, stderr) {
+        if (err) {
             return callback(`Error executing lll:\n${stderr}`);
         }
-            
+
 
         let rx = /^Version\:(.*)$/gm;
         compiler.version = rx.exec(stdout.trim())[1].trim();
-        
+
         callback(null);
     });
 }
@@ -64,7 +64,7 @@ function checkLLL(callback) {
 function execLLL(source_path, callback) {
     const command = `${settings.extensionConfig().command} --hex ${shellescape([source_path])}`;
 
-    exec(command, function(err, stdout, stderr) {
+    exec(command, function (err, stdout, stderr) {
         if (err)
             return callback(
                 `${stderr}\nCompilation of ${source_path} failed. See above.`
@@ -83,8 +83,8 @@ function compileAll(options, callback) {
     compile.display(options.paths, options);
     async.map(
         options.paths,
-        function(source_path, c) {
-            execLLL(source_path, function(err, compiled_contract) {
+        function (source_path, c) {
+            execLLL(source_path, function (err, compiled_contract) {
                 if (err) return c(err);
                 // remove first extension from filename
                 const extension = path.extname(source_path);
@@ -105,10 +105,10 @@ function compileAll(options, callback) {
                 c(null, contract_definition);
             });
         },
-        function(err, contracts) {
+        function (err, contracts) {
             if (err) return callback(err);
 
-            const result = contracts.reduce(function(result, contract) {
+            const result = contracts.reduce(function (result, contract) {
                 result[contract.contract_name] = contract;
 
                 return result;
@@ -132,7 +132,7 @@ function compileLLL(options, callback) {
     // no LLL files found, no need to check LLL
     if (options.paths.length === 0) return callback(null, {}, []);
 
-    checkLLL(function(err) {
+    checkLLL(function (err) {
         if (err) return callback(err);
 
         return compileAll(options, callback);
@@ -152,7 +152,7 @@ function compileActiveFileCommand(contractFile) {
                 vscode.window.showErrorMessage('[Compiler Error] ' + errormsg);
                 let lineNr = 1; // add default errors to line 0 if not known
                 let matches = /(?:line\s+(\d+))/gm.exec(errormsg)
-                if (matches && matches.length==2){
+                if (matches && matches.length == 2) {
                     //only one line ref
                     lineNr = parseInt(matches[1])
                 }
@@ -211,7 +211,7 @@ function compileActiveFile(contractFile) {
             paths: [typeof contractFile == "undefined" ? vscode.window.activeTextEditor.document.uri.path : contractFile.path]
         }
 
-        compileLLL(options, function(err, result, paths, compilerInfo) {
+        compileLLL(options, function (err, result, paths, compilerInfo) {
             if (err) {
                 reject(err)
             } else {
