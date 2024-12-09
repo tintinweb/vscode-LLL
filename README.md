@@ -1,5 +1,8 @@
 ![img](./images/icon.png)
 
+[<img height="30" alt="vscode marketplace" src="https://github.com/user-attachments/assets/030dde14-1745-4f4e-852c-b415db9c2050">](https://marketplace.visualstudio.com/items?itemName=tintinweb.vscode-lll) [<img height="30" alt="open-vsx" src="https://github.com/user-attachments/assets/975d31ca-5259-4bf0-8c40-b2e25cdd5ccb">](https://open-vsx.org/extension/tintinweb/vscode-lll) 
+
+
 
 # vscode-LLL    
 
